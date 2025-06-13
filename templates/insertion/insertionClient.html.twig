@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel véhicule{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper card p-3 text-bg-light shadow m-5" style="width:35%; margin-left:30% !important;">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+            <button class="btn btn-info" type="submit">ENVOYER</button>
+            <a class="btn btn-danger" href="{{path('admin')}}">RETOUR</a>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

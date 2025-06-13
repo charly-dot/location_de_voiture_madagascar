@@ -1,0 +1,251 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+<footer>
+  <nav class="navbar bg-light">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+
+      <!-- Partie gauche : logo -->
+      <div class="navbar-brand mb-0 h1">LOC.VEHICULE</div>
+
+      <!-- Partie centrale : boutons -->
+      <div class="d-flex gap-2">
+        <a class="btn btn-info text-white text-center px-3" href="#">
+          <div class="fw-bold">DISCUSSION</div>
+          <div class="rounded-circle bg-white text-info fw-bold d-inline-flex justify-content-center align-items-center" style="width: 35px; height: 35px;">
+            4
+          </div>
+        </a>
+
+        <a class="btn btn-info text-white text-center px-3" href="{{ path('admin') }}">
+          <div class="fw-bold">VÉHICULE</div>
+          <div><i class="bi bi-car-front-fill fs-3"></i></div>
+        </a>
+
+        <a class="btn btn-info text-white text-center px-3" href="{{ path('admiP') }}">
+          <div class="fw-bold">PROPRIÉTÉ</div>
+          <div><i class="bi bi-person fs-3"></i></div>
+        </a>
+
+        <a class="btn btn-info text-white text-center px-3" href="{{ path('commande') }}">
+          <div class="fw-bold">COMMANDE</div>
+          
+          <div class="rounded-circle bg-white text-info fw-bold d-inline-flex justify-content-center align-items-center" style="width: 35px; height: 35px;">
+              {% if vue %}
+                {{ vue }}
+              {% else %}
+                0
+              {% endif %}
+          </div>
+          
+        </a>
+      </div>
+
+      <!-- Partie droite : déconnexion -->
+      <div>
+        <a href="{{ path('app_logout') }}" class="text-dark fw-bold text-decoration-none">DÉCONNECTER</a>
+      </div>
+
+    </div>
+  </nav>
+</footer>
+
+
+ <header>
+  <div style="margin-top:20px;">
+ {% include 'Message.html.twig' %}
+  </div>
+  <div class="container-fluid p-2">
+    <div class="row g-3">
+      <div class="col-sm-11 card p-3 m-3 bg-warning-subtle" style="width: 80%;">
+      
+       
+      {% if indice =="proprietaire" %}
+          <table class="table">
+            <thead>
+                <tr>
+                  <th scope="col">CIN</th>
+                  <th scope="col">NOM</th>
+                  <th scope="col">PRENOM</th>
+                  <th scope="col">TEL</th>
+                  <th scope="col">CONTRAT</th>
+                  <th scope="col">ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for donne in donne %}
+                <tr>
+                  <td>{{donne.cin}}</td>
+                  <td>{{donne.name}}</td>
+                  <td>{{donne.prenom}}</td>
+                  <td>{{donne.tel}}</td>
+                  <td>{{donne.contatrat}}</td>
+                 <td>
+                    <a class="btn btn-warning btn-sm rounded-pill me-2" href="{{ path('ModifClient', {act: 2, id: donne.id}) }}">
+                      <i class="bi bi-pencil-fill"></i>
+                    </a>
+
+                    <a class="btn btn-primary btn-sm rounded-pill me-2" href="{{ path('actions', {act: donne.id, id: 5}) }}">
+                      <i class="bi bi-car-front"></i>
+                    </a>
+
+                    <a class="btn btn-danger btn-sm rounded-pill" href="{{ path('actions', {act: donne.id, id: 6}) }}" onclick="return confirm('Voulez-vous vraiment supprimer ?');">
+                      <i class="bi bi-trash-fill"></i>
+                    </a>
+                      
+                  </td>
+
+                </tr>
+                {% endfor %}
+           
+              </tbody>
+          </table>
+      {% else %}
+        <table class="table"> 
+        {% if condition == 'Prop' %}
+              <thead>
+                <tr>
+                  <th scope="col">cin</th>
+                  <th scope="col">name</th>
+                  <th scope="col">prenom</th>
+                  <th scope="col">tel</th>
+                  <th scope="col">contatrat</th>
+                  <th scope="col">idVehicule</th>
+                  
+                </tr>
+              </thead>
+           
+              <tbody>
+                <tr>
+                <td>{{donne.cin}}</td>
+                <td>{{donne.name}}</td>
+                <td>{{donne.prenom}}</td>
+                <td>{{donne.tel}}</td>
+                <td>{{donne.contatrat}}</td>
+                <td>{{donne.idVehicule}}</td>
+              </tr>
+           
+              </tbody>
+           
+        {% elseif condition == 'Vehic' %}
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">TYPE</th>
+                  <th scope="col">CATEGORIE</th>
+                  
+                  <th scope="col">PLACE</th>
+                  <th scope="col">MOTEUR</th>
+                  <th scope="col">MARQUE</th>
+                  <th scope="col">ACTION</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for donne in donne %}
+                    <tr>
+                      <td>{{donne.id}}</td>
+                      <td>{{donne.type}}</td>
+                      <td>{{donne.categorie}}</td>
+                      <td>{{donne.place}}</td>
+                      <td>{{donne.motereur}}</td>
+                      <td>{{donne.marque}}</td>
+                      <td>
+                              {% if donne.reservation == 'reserver' %}
+                                <a class="btn btn-success btn-sm rounded-pill me-2" href="{{ path('actions', {act: donne.id, id: 8}) }}">
+                                    <i class="bi bi-check-circle-fill"> .</i> reserver
+                                </a>
+                            {% else %}
+                                <a class="btn btn-warning btn-sm rounded-pill me-2" href="{{ path('actions', {act: donne.id, id: 9}) }}">
+                                   non reserver
+                                </a>
+                            {% endif %}
+                          <a class="btn btn-warning btn-sm rounded-pill me-2" href="{{ path('actions', {act: donne.id, id: 1}) }}"><i class="bi bi-pencil-fill"></i></a>
+                          <a class="btn btn-primary btn-sm rounded-pill me-2" href="{{ path('actions', {act: donne.id, id: 2}) }}"><i class="bi bi-person-circle"></i></i></a>
+                          <a class="btn btn-danger btn-sm rounded-pill" href="{{ path('actions', {act: donne.id, id: 3}) }}"><i class="bi bi-trash-fill"></i></a></td>
+                      </td>    
+                    </tr>
+                {% else %}
+                <li class="list-group-item text-center">Aucune donnée disponible.</li>
+                {% endfor %}
+              </tbody>
+        {% elseif condition == 'commande' %}
+          
+            
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">NOM</th>
+                  <th scope="col">EMAIL</th>
+                  <th scope="col">DEBUT</th>
+                  <th scope="col">FIN </th>
+                  {# <th scope="col">TOMOBILE</th> #}
+                  <th scope="col">ACTION</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for donne in donne %}
+                    <tr>
+                      <td>{{donne.id}}</td>
+                      <td>{{donne.name}}</td>
+                      <td>{{donne.email}}</td>
+                      <td>{{ donne.dateDebut ? donne.dateDebut|date('d/m/Y') : '—' }}</td>
+                      <td>{{ donne.dateFin ? donne.dateFin|date('d/m/Y') : '—' }}</td>
+                      <td>
+                        {% if donne.confirmer == 'xxx' %}
+                            <a class="btn btn-warning btn-sm rounded-pill me-2" href="{{ path('actionsVehi', {act: donne.id,act1: donne.getIdVehicule ,id: 10}) }}">
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                            </a>
+                        {% elseif donne.confirmer == 'vue' %}
+                            <a class="btn btn-warning btn-sm rounded-pill me-2" href="{{ path('actionsVehi', {act: donne.id,act1: donne.getIdVehicule ,id: 10}) }}">
+                                <i class="bi bi-eye text-primary"></i>
+                            </a>
+                        {% else %}
+                            <a class="btn btn-warning btn-sm rounded-pill me-2" href="{{ path('actionsVehi', {act: donne.id,act1: donne.getIdVehicule ,id: 7}) }}">
+                                <i class="bi bi-x-circle-fill text-danger"></i>
+                            </a>
+                        {% endif %}
+                        <a class="btn btn-danger btn-sm rounded-pill" href="{{ path('actions', {act: donne.id, id: 4}) }}" onclick="return confirm('Voulez-vous vraiment supprimer ?');"><i class="bi bi-trash-fill"></i></a>
+                      </td>
+                    </tr>
+                {% else %}
+                <li class="list-group-item text-center">Aucune donnée disponible.</li>
+                {% endfor %}
+              </tbody>
+        {% endif %}
+      </table>
+
+      {% endif %}
+
+
+
+      
+
+
+     
+      </div>
+
+
+      <div class="col-sm-1 card p-3 m-3 bg-info-subtle" style="width: 15%; height:100%;">
+        <a href="{{ path('app_controlls') }}" class="btn-info btn m-1" style="margin-top: 60% !important ;margin-bottom: 60% !important;">SIT officiel</a>
+          <div class="btn-group" style="margin-bottom: 90% !important;">
+            <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              INSERTION
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ path('insertion_tomobiles') }}">VOITURE</a></li>
+              <li><a class="dropdown-item" href="{{ path('insertionClients', {act: 2, id: 0}) }}">CLIENT</a></li>
+              
+            </ul>
+          </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% endblock %}
+
+
+ 

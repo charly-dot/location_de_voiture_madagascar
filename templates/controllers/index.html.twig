@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Location{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary p-3 m-2 bg-light shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">LOC.VEHICULE</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" style="margin-left:65%;" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_controlls') }}">HOME</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">TYPE</a>
+                    <ul class="dropdown-menu">
+                        {% for t in type %}
+                            <li><a class="dropdown-item" href="{{ path('app_controlle', {filter: t.type, id: 1}) }}">{{ t.type }}</a></li>
+                        {% else %}
+                            <li class="dropdown-item text-center text-muted">Aucun type</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">CATEGORIE</a>
+                    <ul class="dropdown-menu">
+                        {% for c in categorie %}
+                            <li><a class="dropdown-item" href="{{ path('app_controlle', {filter: c.categorie, id: 2}) }}">{{ c.categorie }}</a></li>
+                        {% else %}
+                            <li class="dropdown-item text-center text-muted">Aucune catégorie</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">PRIX</a>
+                    <ul class="dropdown-menu">
+                        {% for p in cate %}
+                            <li><a class="dropdown-item" href="{{ path('app_controlle', {filter: p.prix, id: 3}) }}">{{ p.prix }}</a></li>
+                        {% else %}
+                            <li class="dropdown-item text-center text-muted">Aucun prix</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid bg-white">
+    <ul class="d-flex flex-wrap justify-content-start ">
+        {% for donne in donne %}
+            <li class="card m-3  shadow-sm" style="width: 18rem;">
+                <img style="width: 100%; height: 200px; object-fit: cover;" src="{{ asset('image/' ~ donne.image) }}" alt="sary" class="card-img-top">
+                 {% if donne.reservation == 'reserver' %}
+                    <span class="bg-danger text-center" style="font-family:arial-black;">
+                        réserver
+                    </span>
+                 {% else %}
+                    <span class="bg-warning  text-center " style="font-family:arial-black;">
+                        non réserver
+                    </span>
+                {% endif %}                
+                <div class="m-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">{{ donne.marque }}</h5>    
+                        <div>
+                                <a href="#" class="btn btn-danger btn-sm toggle-btn">INFOR</a>
+                                <a href="{{ path('pageDetail', {id: donne.id}) }}" class="btn btn-danger btn-sm">DETAIL</a>
+                        </div>
+                    </div>
+                   <div class="visible mt-1 p-1 rounded-3 border bg-light " style="display: none;">
+                    <ul class="">
+                        <li class="list-group-item">
+                            <strong>Description :</strong> {{ donne.description }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Prix :</strong> {{ donne.prix }} Ar
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Nombre de places :</strong> {{ donne.place }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Moteur :</strong> {{ donne.motereur }}
+                        </li>
+                    </ul>
+                </div>
+
+                </div>    
+            </li>
+        {% else %}
+            <li class="list-group-item text-center w-100">Aucune donnée disponible.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const buttons = document.querySelectorAll('.toggle-btn');
+        buttons.forEach(function(button) {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const content = this.closest('.card').querySelector('.visible');
+                content.style.display = (content.style.display === "none") ? "block" : "none";
+            });
+        });
+    });
+</script>
+{% endblock %}

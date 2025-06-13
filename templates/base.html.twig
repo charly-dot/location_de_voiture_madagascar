@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}LOC.VEHICULE{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {# ✅ CSS Bootstrap 5.3 #}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    {% block stylesheets %}{% endblock %}
+</head>
+<body class="bg-light">
+    <main>
+        {% block body %}{% endblock %}
+        <footer class="bg-light text-dark mt-5 border-top py-4">
+            <div class="container">
+                <div class="row">
+                    <!-- À propos -->
+                    <div class="col-md-4 mb-3">
+                        <h5 class="fw-bold">À propos</h5>
+                        <p class="mb-1">
+                            Nous proposons des services de location de voitures fiables à travers Madagascar. Réservez en ligne facilement et en toute sécurité.
+                        </p>
+                        <p class="text-muted small">Depuis {{ "now"|date("Y") }}.</p>
+                    </div>
+                    <!-- Liens utiles -->
+                    <div class="col-md-4 mb-3">
+                        <h5 class="fw-bold">Liens utiles</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-decoration-none text-dark">Accueil</a></li>
+                            <li><a href="#" class="text-decoration-none text-dark">Nos véhicules</a></li>
+                            <li><a href="#" class="text-decoration-none text-dark">Contact</a></li>
+                            <li><a href="#" class="text-decoration-none text-dark">FAQ</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact -->
+                    <div class="col-md-4 mb-3">
+                        <h5 class="fw-bold">Nous contacter</h5>
+                        <p class="mb-1"><i class="bi bi-geo-alt-fill me-1"></i> Antananarivo, Madagascar</p>
+                        <p class="mb-1"><i class="bi bi-telephone-fill me-1"></i> +261 34 12 345 67</p>
+                        <p class="mb-1"><i class="bi bi-envelope-fill me-1"></i> contact@locationvoiture.mg</p>
+                        <div class="mt-2">
+                            <a href="https://facebook.com" target="_blank" class="text-dark me-2"><i class="bi bi-facebook"></i></a>
+                            <a href="https://twitter.com" target="_blank" class="text-dark me-2"><i class="bi bi-twitter-x"></i></a>
+                            <a href="https://instagram.com" target="_blank" class="text-dark"><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="text-center small text-muted">
+                    &copy; {{ "now"|date("Y") }} Location Voiture MG – Tous droits réservés.
+                </div>
+            </div>
+        </footer>
+
+    </main>
+    {# ✅ JS Bootstrap (avec Popper inclus) #}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% block javascripts %}{% endblock %}
+</body>
+</html>
