@@ -3,11 +3,66 @@
 {% block title %}Nouvel véhicule{% endblock %}
 
 {% block body %}
-    <div class="example-wrapper card p-3 text-bg-light shadow m-5" style="width:35%; margin-left:30% !important;">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-            <button class="btn btn-info" type="submit">ENVOYER</button>
-            <a class="btn btn-danger" href="{{path('admin')}}">RETOUR</a>
-        {{ form_end(form) }}
-    </div>
+  <style>
+    /* Formulaire stylé */
+    .example-wrapper {
+      background-color: #fdf9ec;
+      border: 2px solid #004080;
+      border-radius: 15px;
+    }
+
+    .example-wrapper label {
+      color: #004080;
+      font-weight: bold;
+    }
+
+    .example-wrapper input,
+    .example-wrapper select,
+    .example-wrapper textarea {
+      border: 1px solid #004080;
+      border-radius: 8px;
+    }
+
+    .example-wrapper input:focus,
+    .example-wrapper select:focus,
+    .example-wrapper textarea:focus {
+      box-shadow: 0 0 5px rgba(0, 64, 128, 0.6);
+      border-color: #004080;
+    }
+
+    .example-wrapper .btn-info {
+      background-color: #004080;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      padding: 8px 16px;
+      transition: background 0.3s ease;
+    }
+
+    .example-wrapper .btn-info:hover {
+      background-color: #003366;
+    }
+
+    .example-wrapper .btn-danger {
+      background-color: #c0392b;
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 8px 16px;
+    }
+
+    .example-wrapper .btn-danger:hover {
+      background-color: #922b21;
+    }
+  </style>
+
+  <div class="example-wrapper card p-3 shadow m-5" style="width:35%; margin-left:30%;">
+    {{ form_start(form) }}
+      {{ form_widget(form) }}
+      <div class="mt-3 d-flex justify-content-between">
+        <button class="btn btn-info" type="submit">ENVOYER</button>
+        <a class="btn btn-danger" href="{{ path('admin') }}">RETOUR</a>
+      </div>
+    {{ form_end(form) }}
+  </div>
 {% endblock %}

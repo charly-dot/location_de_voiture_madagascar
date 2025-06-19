@@ -20,6 +20,7 @@ use App\Form\VehiculeForm;
 use App\Form\VehiculesForm;
 use App\Repository\CommandeRepository;
 use App\Repository\CommandesRepository;
+use App\Repository\DiscutionRepository;
 use App\Repository\ProprietaireRepository;
 use App\Repository\TomobilesRepository;
 use App\Repository\VehiculeRepository;
@@ -146,6 +147,22 @@ final class ControllersController extends AbstractController
             'vue' => $vue,
         ]);
     }
+    #[Route('/commentaires', name: 'commentaire')]
+    public function comment(DiscutionRepository $vueRepo, TomobilesRepository $donneRepo): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
+        $donneesVehicules = $donneRepo->findAll(); // véhicules
+        $discutions = $vueRepo->findAll(); // discussions
+    
+        return $this->render('controllers/Container/admin.html.twig', [
+            'donne' => $donneesVehicules,
+            'condition' => 'discution',
+            'indice' => ' ',
+            'vue' => $discutions,
+        ]);
+    }
+    
     
     #[Route('/commandes', name: 'commande')]
     public function commandess(CommandesRepository $donne, TomobilesRepository $donnes): Response
@@ -461,7 +478,7 @@ final class ControllersController extends AbstractController
 
     
     #[Route('/nouveau', name: 'insertion_tomobiles')]    
-    public function insertion_tomobile(Request $request, EntityManagerInterface $em, VehiculeRepository $donnes, ProprietaireRepository $proprietaire): Response
+    public function insertion_tomobile(Request $request, EntityManagerInterface $em, VehiculeRepository $donnes, ProprietaireRepository $proprietaire, CommandesRepository $vue,TomobilesRepository $donness): Response
     {
         // $id_entrange = $proprietaire -> findOneBy(['name' => 'charly']);
         // $this -> denyAccessUnlessGranted('ROLE_USER');
@@ -491,13 +508,16 @@ final class ControllersController extends AbstractController
             }
             $em->persist($donne);
             $em->flush();
-        
+      
             $donne = $donnes->findAll();
             $proprietaire = $proprietaire->findAll();
-            return $this->render('controllers/index.html.twig', [
-                'donne' => $donne,
-                'proprietaire' => $proprietaire,
-
+            $donne2 = $donness->findAll();
+            $vue = $vue->vue();
+            return $this->render('controllers/Container/admin.html.twig', [
+                'donne' => $donne2,        
+                'condition' => 'Vehic',
+                'indice' => ' ',
+                'vue' => $vue,
             ]);
         }
             return $this->render('insertion/insertionVehicule.html.twig', [

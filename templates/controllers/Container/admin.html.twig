@@ -13,7 +13,7 @@
 
       <!-- Partie centrale : boutons -->
       <div class="d-flex gap-2">
-        <a class="btn btn-info text-white text-center px-3" href="#">
+        <a class="btn btn-info text-white text-center px-3" href="{{  path('commentaire') }}">
           <div class="fw-bold">DISCUSSION</div>
           <div class="rounded-circle bg-white text-info fw-bold d-inline-flex justify-content-center align-items-center" style="width: 35px; height: 35px;">
             4
@@ -171,6 +171,25 @@
                 <li class="list-group-item text-center">Aucune donnée disponible.</li>
                 {% endfor %}
               </tbody>
+        {% elseif condition == 'discution' %}
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">TYPE</th>
+                  <th scope="col">CATEGORIE</th>
+                  <th scope="col">PLACE</th>
+                  <th scope="col">MOTEUR</th>
+                  <th scope="col">MARQUE</th>
+                  <th scope="col">ACTION</th>
+                </tr>
+              </thead>
+              <tbody>
+               {% for donne in donne %}
+        {{ dump(donne) }}
+    {% else %}
+        <li class="list-group-item text-center">Aucune donnée disponible.</li>
+    {% endfor %}
+              </tbody>
         {% elseif condition == 'commande' %}
           
             
@@ -215,8 +234,7 @@
                 {% endfor %}
               </tbody>
         {% endif %}
-      </table>
-
+      </table
       {% endif %}
 
 
