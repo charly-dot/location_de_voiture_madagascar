@@ -1,6 +1,5 @@
-
 {% for type, messages in app.flashes %}
-    <div class="alert alert-{{type}}" role="alert" class="card p-4 box-shadown" style="text-align:center;">
-        {{messages | join('. ')}}
-    </div>
+	<div class="alert alert-{{type}}" role="alert" class="card p-4 box-shadown " style="text-align:center;margin-left:2%;">
+		{{messages | join('. ')}}
+	</div>
 {% endfor %}

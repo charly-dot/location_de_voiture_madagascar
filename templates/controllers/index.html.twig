@@ -1,119 +1,135 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Location{% endblock %}
+{% block title %}Location
+{% endblock %}
 
 {% block body %}
-<nav class="navbar navbar-expand-lg shadow p-3" style="background-color: rgba(0, 34, 62, 0.932);">
-    <div class="container-fluid">
-        <a class="navbar-brand text-white fw-bold" href="#">LOC.VEHICULE</a>
-        <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+	<nav class="navbar navbar-expand-lg shadow p-3" style="background-color: rgba(0, 34, 62, 0.932);">
+		<div class="container-fluid">
+			<a class="navbar-brand text-white fw-bold" href="#">LOC.VEHICULE</a>
+			<button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-        <div class="collapse navbar-collapse justify-content-end" id="navbarText">
-            <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link text-white {% if app.request.get('_route') == 'app_controlls' %}active fw-bold{% endif %}" href="{{ path('app_controlls') }}">HOME</a>
-                </li>
+			<div class="collapse navbar-collapse justify-content-end" id="navbarText">
+				<ul class="navbar-nav mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link text-white {% if app.request.get('_route') == 'app_controlls' %}active fw-bold{% endif %}" href="{{ path('app_controlls') }}">HOME</a>
+					</li>
 
-                <!-- TYPE -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">TYPE</a>
-                    <ul class="dropdown-menu">
-                        {% for t in type %}
-                            <li><a class="dropdown-item" href="{{ path('app_controlle', {filter: t.type, id: 1}) }}">{{ t.type }}</a></li>
-                        {% else %}
-                            <li class="dropdown-item text-muted text-center">Aucun type</li>
-                        {% endfor %}
-                    </ul>
-                </li>
+					<!-- TYPE -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">TYPE</a>
+						<ul class="dropdown-menu">
+							{% for t in type %}
+								<li>
+									<a class="dropdown-item" href="{{ path('app_controlle', {filter: t.type, id: 1}) }}">{{ t.type }}</a>
+								</li>
+							{% else %}
+								<li class="dropdown-item text-muted text-center">Aucun type</li>
+							{% endfor %}
+						</ul>
+					</li>
 
-                <!-- CATEGORIE -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">CATEGORIE</a>
-                    <ul class="dropdown-menu">
-                        {% for c in categorie %}
-                            <li><a class="dropdown-item" href="{{ path('app_controlle', {filter: c.categorie, id: 2}) }}">{{ c.categorie }}</a></li>
-                        {% else %}
-                            <li class="dropdown-item text-muted text-center">Aucune catégorie</li>
-                        {% endfor %}
-                    </ul>
-                </li>
+					<!-- CATEGORIE -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">CATEGORIE</a>
+						<ul class="dropdown-menu">
+							{% for c in categorie %}
+								<li>
+									<a class="dropdown-item" href="{{ path('app_controlle', {filter: c.categorie, id: 2}) }}">{{ c.categorie }}</a>
+								</li>
+							{% else %}
+								<li class="dropdown-item text-muted text-center">Aucune catégorie</li>
+							{% endfor %}
+						</ul>
+					</li>
 
-                <!-- PRIX -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">PRIX</a>
-                    <ul class="dropdown-menu">
-                        {% for p in cate %}
-                            <li><a class="dropdown-item" href="{{ path('app_controlle', {filter: p.prix, id: 3}) }}">{{ p.prix }}</a></li>
-                        {% else %}
-                            <li class="dropdown-item text-muted text-center">Aucun prix</li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+					<!-- PRIX -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">PRIX</a>
+						<ul class="dropdown-menu">
+							{% for p in cate %}
+								<li>
+									<a class="dropdown-item" href="{{ path('app_controlle', {filter: p.prix, id: 3}) }}">{{ p.prix }}</a>
+								</li>
+							{% else %}
+								<li class="dropdown-item text-muted text-center">Aucun prix</li>
+							{% endfor %}
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 
 
-<div class="container-fluid  py-4">
-    <ul class="d-flex flex-wrap justify-content-start gap-3 px-3">
-        {% for donne in donne %}
-            <li class="card m-3 shadow border-0" style="width: 18rem; background-color: rgb(254, 254, 254) !important;" >
-                <div class="position-relative">
-                    <img style="width: 100%; height: 200px; object-fit: cover;" src="{{ asset('image/' ~ donne.image) }}" alt="sary" class="card-img-top rounded-top">
-                    
-                    {% if donne.reservation == 'reserver' %}
-                        <span class="position-absolute top-0 start-0 bg-danger text-white px-2 py-1 small fw-bold rounded-end" style="font-family:arial-black;">
-                            RÉSERVÉ
-                        </span>
-                    {% else %}
-                        <span class="position-absolute top-0 start-0 bg-warning text-dark px-2 py-1 small fw-bold rounded-end" style="font-family:arial-black;">
-                            NON RÉSERVÉ
-                        </span>
-                    {% endif %}
-                </div>
+	<div class="container-fluid  py-4">
+		<ul class="d-flex flex-wrap justify-content-start gap-3 px-3">
+			{% for donne in donne %}
+				<li class="card m-3 shadow border-0" style="width: 18rem; background-color: rgb(254, 254, 254) !important;">
+					<div class="position-relative">
+						<img style="width: 100%; height: 200px; object-fit: cover;" src="{{ asset('image/' ~ donne.image) }}" alt="sary" class="card-img-top rounded-top">
 
-                <div class="m-2">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <h5 class="card-title mb-0">{{ donne.marque }}</h5>
-                        <div>
-                            <a href="#" class="btn btn-danger btn-sm toggle-btn">INFOR</a>
-                            <a href="{{ path('pageDetail', {id: donne.id}) }}" class="btn btn-danger btn-sm">DETAIL</a>
-                        </div>
-                    </div>
+						{% if donne.reservation == 'reserver' %}
+							<span class="position-absolute top-0 start-0 bg-danger text-white px-2 py-1 small fw-bold rounded-end" style="font-family:arial-black;">
+								RÉSERVÉ
+							</span>
+						{% else %}
+							<span class="position-absolute top-0 start-0 bg-warning text-dark px-2 py-1 small fw-bold rounded-end" style="font-family:arial-black;">
+								NON RÉSERVÉ
+							</span>
+						{% endif %}
+					</div>
 
-                    <div class="visible mt-1 p-2 rounded-3 border bg-light" style="display: none;">
-                        <ul class="mb-0 px-2" style="list-style: none;">
-                            <li class="list-group-item px-0 py-1"><strong>Description :</strong> {{ donne.description }}</li>
-                            <li class="list-group-item px-0 py-1"><strong>Prix :</strong> {{ donne.prix }} Ar</li>
-                            <li class="list-group-item px-0 py-1"><strong>Nombre de places :</strong> {{ donne.place }}</li>
-                            <li class="list-group-item px-0 py-1"><strong>Moteur :</strong> {{ donne.motereur }}</li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
-        {% else %}
-            <li class="list-group-item text-center w-100">Aucune donnée disponible.</li>
-        {% endfor %}
-    </ul>
-</div>
+					<div class="m-2">
+						<div class="d-flex justify-content-between align-items-center mb-2">
+							<h5 class="card-title mb-0">{{ donne.marque }}</h5>
+							<div>
+								<a href="#" class="btn btn-danger btn-sm toggle-btn">INFOR</a>
+								<a href="{{ path('pageDetail', {id: donne.id}) }}" class="btn btn-danger btn-sm">DETAIL</a>
+							</div>
+						</div>
+
+						<div class="visible mt-1 p-2 rounded-3 border bg-light" style="display: none;">
+							<ul class="mb-0 px-2" style="list-style: none;">
+								<li class="list-group-item px-0 py-1">
+									<strong>Description :</strong>
+									{{ donne.description }}</li>
+								<li class="list-group-item px-0 py-1">
+									<strong>Prix :</strong>
+									{{ donne.prix }}
+									Ar</li>
+								<li class="list-group-item px-0 py-1">
+									<strong>Nombre de places :</strong>
+									{{ donne.place }}</li>
+								<li class="list-group-item px-0 py-1">
+									<strong>Moteur :</strong>
+									{{ donne.motereur }}</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+			{% else %}
+				<li class="list-group-item text-center w-100">Aucune donnée disponible.</li>
+			{% endfor %}
+		</ul>
+	</div>
 
 
 {% endblock %}
 
 {% block javascripts %}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const buttons = document.querySelectorAll('.toggle-btn');
-        buttons.forEach(function(button) {
-            button.addEventListener('click', function (e) {
-                e.preventDefault();
-                const content = this.closest('.card').querySelector('.visible');
-                content.style.display = (content.style.display === "none") ? "block" : "none";
-            });
-        });
-    });
-</script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+const buttons = document.querySelectorAll('.toggle-btn');
+buttons.forEach(function (button) {
+button.addEventListener('click', function (e) {
+e.preventDefault();
+const content = this.closest('.card').querySelector('.visible');
+content.style.display = (content.style.display === "none") ? "block" : "none";
+});
+});
+});
+	</script>
 {% endblock %}

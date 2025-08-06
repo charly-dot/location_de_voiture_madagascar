@@ -1,0 +1,121 @@
+{% extends 'base.html.twig'%}
+{%  block titre %}
+	commentaire
+{% endblock %}
+
+
+{% block body %}
+	<footer>
+		<nav class="navbar bg-light">
+			<div
+				class="container-fluid d-flex justify-content-between align-items-center">
+
+				<!-- Partie gauche : logo -->
+				<div class="navbar-brand mb-0 h1">LOC.VEHICULE</div>
+
+				<!-- Partie centrale : boutons -->
+				<div class="d-flex gap-2">
+					<a class="btn btn-info text-white text-center px-3" href="{{ path('commentaire') }}">
+						<div class="fw-bold">DISCUSSION</div>
+						<div class="rounded-circle bg-white text-info fw-bold d-inline-flex justify-content-center align-items-center" style="width: 35px; height: 35px;">
+							4
+						</div>
+					</a>
+
+					<a class="btn btn-info text-white text-center px-3" href="{{ path('admin') }}">
+						<div class="fw-bold">VÉHICULE</div>
+						<div>
+							<i class="bi bi-car-front-fill fs-3"></i>
+						</div>
+					</a>
+
+					<a class="btn btn-info text-white text-center px-3" href="{{ path('admiP') }}">
+						<div class="fw-bold">PROPRIÉTÉ</div>
+						<div>
+							<i class="bi bi-person fs-3"></i>
+						</div>
+					</a>
+
+					<a class="btn btn-info text-white text-center px-3" href="{{ path('commande') }}">
+						<div class="fw-bold">COMMANDE</div>
+						<div
+							class="rounded-circle bg-white text-info fw-bold d-inline-flex justify-content-center align-items-center" style="width: 35px; height: 35px;">{# {% if vue %}
+																{{ vue }}
+															{% else %}
+																0
+															{% endif %} #}
+						</div>
+					</a>
+				</div>
+				<table>
+					<thead>
+						<tr>
+							<th scope="col">ID</th>
+							<th scope="col">DISCUTION</th>
+							<th scope="col">EMAIL</th>
+							<th scope="col">CONTACT</th>
+							<th scope="col">ID VEHICULE</th>
+							<th scope="col">CONFIRMATION</th>
+							<th scope="col">ACTION</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for d in donne %}
+							<tr>
+								<td>{{ d.id }}</td>
+								<td>{{ d.discution }}</td>
+								<td>{{ d.email }}</td>
+								<td>{{ d.contact }}</td>
+								<td>{{ d.idVehicule }}</td>
+								<td>{{ d.confirmation }}</td>
+								<td>
+									<a href="#">Modifier</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="7" class="text-center">Aucune discussion disponible.</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<!-- Partie droite : déconnexion -->
+				<div>
+					<a href="{{ path('app_logout') }}" class="text-dark fw-bold text-decoration-none">DÉCONNECTER</a>
+				</div>
+			</div>
+		</nav>
+	</footer>
+
+	<header>
+		<div style="margin-top:20px;">
+			{% include 'Message.html.twig' %}
+		</div>
+
+		<div class="container-fluid p-2">
+			<div
+				class="row p-6">
+				<!-- Partie gauche : tableau -->
+				<div class="col-sm-9 card p-3 g-6  bg-light"></div>
+
+				<!-- Partie droite : insertion -->
+				<div class="col-sm-3 card p-3 bg-info-subtle ">
+					<a href="{{ path('app_controlls') }}" class="btn btn-info w-100 mb-3">SIT officiel</a>
+					<div class="btn-group w-80">
+						<button type="button" class="btn btn-info dropdown-toggle w-60" data-bs-toggle="dropdown" aria-expanded="false">
+							INSERTION
+						</button>
+						<ul class="dropdown-menu w-80">
+							<li>
+								<a class="dropdown-item" href="{{ path('insertion_tomobiles') }}">VOITURE</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{{ path('insertionClients', {act: 2, id: 0}) }}">CLIENT</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+{% endblock %}
